@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: AzureWSL
+  name: AgentWSL
 
 steps:
 - task: Maven@3
