@@ -25,6 +25,11 @@ steps:
     cliProjectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'  # Your unique project key in SonarQube
     cliProjectName: 'ashumlk95'  # Optional: Name of the project in SonarQube
     cliSources: '.'  # Source directory ('.' represents the current directory)
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/target'  # Source of your artifacts
+    Contents: '**/*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 # Publish build artifacts
 - task: PublishBuildArtifacts@1
