@@ -23,10 +23,8 @@ steps:
 - task: SonarQubePrepare@6
   inputs:
     SonarQube: 'Azure'
-    scannerMode: 'CLI'
-    configMode: 'manual'
+    scannerMode: 'MSBuild'
     projectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'
-    cliSources: '.'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
