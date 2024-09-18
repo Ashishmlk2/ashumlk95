@@ -1,8 +1,3 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 trigger:
 - main
 
@@ -10,6 +5,7 @@ pool:
   name: AgentWSL
 
 steps:
+# Maven build step
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -20,11 +16,17 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
+# SonarQube Prepare Analysis Configuration
 - task: SonarQubePrepare@6
   inputs:
-    SonarQube: 'Azure'
-    scannerMode: 'MSBuild'
-    projectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'
+    SonarQube: 'Azure'  # Service connection name for SonarQube
+    scannerMode: 'CLI'  # Use CLI for Java (Maven) projects
+    configMode: 'manual'
+    cliProjectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'  # Your unique project key in SonarQube
+    cliProjectName: 'ashumlk95'  # Optional: Name of the project in SonarQube
+    cliSources: '.'  # Source directory ('.' represents the current directory)
+
+# Publish build artifacts
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
