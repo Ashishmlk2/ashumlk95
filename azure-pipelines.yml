@@ -25,7 +25,7 @@ steps:
     SonarQube: 'Azure'
     scannerMode: 'CLI'
     configMode: 'manual'
-    projectKey: '6118ddd09b838ed8158457cdf9fb22e2d9804b2b'
+    projectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'
     cliSources: '.'
 - task: PublishBuildArtifacts@1
   inputs:
