@@ -1,0 +1,31 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  name: AgentWSL
+
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: 'default'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'Azure'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'
+    cliSources: '.'
+- task: 
