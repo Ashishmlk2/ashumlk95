@@ -5,17 +5,6 @@ pool:
   name: AgentWSL
 
 steps:
-# Maven build step
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'Path'
-    jdkDirectory: '/usr/lib/jvm/java-11-openjdk-amd64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-
 # SonarQube Prepare Analysis Configuration
 - task: SonarQubePrepare@6
   inputs:
@@ -25,6 +14,19 @@ steps:
     cliProjectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'  # Your unique project key in SonarQube
     cliProjectName: 'ashumlk95'  # Optional: Name of the project in SonarQube
     cliSources: '.'  # Source directory ('.' represents the current directory)
+
+# Maven build step with SonarQube analysis
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'Path'
+    jdkDirectory: '/usr/lib/jvm/java-11-openjdk-amd64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'clean package sonar:sonar'  # Include SonarQube analysis
+
+# Copy the build artifacts to the Artifact Staging Directory
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)/target'  # Source of your artifacts
