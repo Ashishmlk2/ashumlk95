@@ -20,24 +20,32 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-
-- task: SonarQubePrepare@4
+- task: SonarQubePrepare@6
   inputs:
-    SonarQube: 'Azure'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY'
-    cliSources: '.'
-
+    SonarQube: 'Sonarqube'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'sonar:sonar'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'JaCoCo'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: 'default'
-    mavenOptions: '-Xmx3072m'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
+- task: SonarQubePublish@6
+  inputs:
+    pollingTimeoutSec: '300'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/target'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
