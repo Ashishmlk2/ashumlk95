@@ -28,7 +28,8 @@ steps:
       # Additional properties that will be passed to the scanner,
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
-      sonar.projectKey=ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY
+      sonar.projectKey=ashumlk95_ashumlk95_4db94bf1-0e44-4697-8b32-ff62d0532bfd
+      sonar.projectName=ashumlk95
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
