@@ -25,7 +25,7 @@ steps:
     SonarQube: 'Sonarqube'
     scannerMode: 'Other'
     extraProperties: |
-      # Additional properties that will be pass to the scanner,
+      # Additional properties that will be passed to the scanner,
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
       sonar.projectKey=ashumlk95_ashumlk95_AZIA-zAwE1OZYLerj9kY
